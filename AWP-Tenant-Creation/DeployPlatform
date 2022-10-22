@@ -1,0 +1,57 @@
+#!/usr/bi/env groovy
+/* Global Variables */
+import java.net.*
+import jenkins.model.*
+import hudson.model.Computer.ListPossibleNames
+
+
+node("10.96.73.157") {	
+	stage("KubernetesDeployment") {
+	
+	sh '''
+
+		rm -rf /opt/tenantSpecific;
+		mkdir /opt/tenantSpecific;
+		echo $platformDb>/opt/tenantSpecific/platformDb.txt
+		echo $platformDBHost>/opt/tenantSpecific/platformDBHost.txt
+		echo $platformDBPort>/opt/tenantSpecific/platformDBPort.txt
+		echo $platformDBUser>/opt/tenantSpecific/platformDBUser.txt
+		echo $platformDBPassword>/opt/tenantSpecific/platformDBPassword.txt
+		
+		 echo $tenantDB>/opt/tenantSpecific/tenantDB.txt
+		 echo $tenantDBHost>/opt/tenantSpecific/platformDBHost.txt
+		 echo $tenantDBPort>/opt/tenantSpecific/platformDBPort.txt
+		 echo $tenantDBUser > /opt/tenantSpecific/platformDBUser.txt
+		 echo $tenantDBPassword >/opt/tenantSpecific/platformDBPassword.txt
+		 echo $deployList > /opt/tenantSpecific/deployList.txt
+		
+        echo $platformBaseURL > /opt/tenantSpecific/platformBaseURL.txt
+		echo $user1 > /opt/tenantSpecific/user.txt
+		echo $pass > /opt/tenantSpecific/pass.txt
+	
+                
+  		cd  AWP-Tenant-Creation
+        export CLASSPATH=postgresql-42.2.5.jar:hudson-core-3.0.0.jar:$CLASSPATH
+                           
+	
+		kubectl cp appworks-0:/opt/appworks/components/bpmengine/database/createscripts/BPM_POSTGRESQL.sql BPM_POSTGRESQL.sql
+		kubectl cp appworks-0:/opt/appworks/components/notification/database/createscripts/Notification_POSTGRESQL.sql  Notification_POSTGRESQL.sql 
+		kubectl cp appworks-0:/opt/appworks/components/notification/database/createscripts/Notification_INIT.sql Notification_INIT.sql  
+		kubectl cp appworks-0:/opt/appworks/components/ruleengine/database/createscripts/RuleRepository_POSTGRESQL.sql  RuleRepository_POSTGRESQL.sql 
+		kubectl cp appworks-0:/opt/appworks/components/scheduler/database/createscripts/Scheduler_POSTGRESQL.sql Scheduler_POSTGRESQL.sql
+                export CLASSPATH=postgresql-42.2.5.jar:hudson-core-3.0.0.jar:$CLASSPATH
+		
+		
+		kubectl cp appworks-0:/opt/appworks/config/solution.yml solution.yml
+		
+		groovy FinalFlow1.groovy
+
+		kubectl cp solution.yml appworks-0:/opt/appworks/config/solution.yml
+
+		groovy FinalFlow.groovy		
+		
+		cd ..
+		
+	'''
+	} 
+}

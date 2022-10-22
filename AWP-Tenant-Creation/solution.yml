@@ -1,0 +1,9 @@
+config_ordinal: 210
+platform:
+  services:
+    instances: Audit, Rule, Scheduler
+  package:
+    security:
+      loadUnsignedCaps: true
+  organizations:
+  

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.ContentServer4" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-02-24T05:28:47" hostname="RGUDIMEPF13F4CG" time="131.505">
+  <properties/>
+  <testcase name="main1" classname="com.ContentServer4" time="131.505"/>
+  <system-out><![CDATA[==== >>>> pass Opentext1!
+==== >>>> keyfa8bd094-1710-439b-889b-05596a399ab4
+ curent URL https://cs-default.appworks1.cfcr-lab.bp-paas.otxlab.net/cs/cs?func=admin.adminpwd&NextURL=%2Fcs%2Fcs%3Ffunc%3Dadmin%2Eadminuserlogin&forceDBLogin=true
+TypeError: Cannot call method "focus" of undefined
+ === >>> Web Admin login success 
+ curent URL https://cs-default.appworks1.cfcr-lab.bp-paas.otxlab.net/cs/cs?func=admin.adminuserlogin
+ curent URL Content Server Administrator User Log-in
+ === >>> Admin login success 
+ === >>> Save changes 
+ === >>> Restart content server required
+ === >>> Completed Restart content server required
+]]></system-out>
+  <system-err><![CDATA[log4j:WARN No appenders could be found for logger (com.gargoylesoftware.htmlunit.WebClient).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+]]></system-err>
+</testsuite>
